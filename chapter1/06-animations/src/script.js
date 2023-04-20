@@ -33,14 +33,13 @@ renderer.render(scene, camera)
 
 
 
-
 // Finally use Library called GSAP to  handle time  @3.5.1
-gsap.to(mesh.position, {duration: 2, delay: 5, x: 1.5})
-gsap.to(mesh.position, {duration: 2, delay: 9, x: 0})
+// gsap.to(mesh.position, {duration: 2, delay: 5, x: 1.5})
+// gsap.to(mesh.position, {duration: 2, delay: 9, x: 0})
 
 
 // let time = Date.now()
-// const clock = new THREE.Clock()
+const clock = new THREE.Clock()
 
 // Tick with requestAnimationFrame
 const tick = () => {
@@ -48,8 +47,8 @@ const tick = () => {
     // mesh.position.x += 0.01
     // mesh.rotation.y += 0.01
     // mesh.scale.z += 0.001
-
-
+    
+    
     // Rotate based on Date.now timeStamp
     // const currentTime = Date.now()
     // const deltaTime = currentTime - time
@@ -57,13 +56,14 @@ const tick = () => {
     // mesh.rotation.x += 0.001 * deltaTime
     // mesh.position.x += 0.001 * deltaTime
     // mesh.position.y += 0.001 * deltaTime
-
+    
     // Rotate based on Clock (THREE JS)
-    // const elapsedTime = clock.getElapsedTime()
-    // // console.log(elapsedTime)
-    // mesh.position.x = Math.tan(elapsedTime)
-    // mesh.position.y = Math.sin(elapsedTime)
-
+    const elapsedTime = clock.getElapsedTime()
+    // console.log(elapsedTime)
+    camera.position.x = Math.sin(elapsedTime)
+    camera.position.y = Math.cos(elapsedTime)
+    camera.lookAt(mesh.position)
+    
 
 
     
