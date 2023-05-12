@@ -13,25 +13,27 @@ const Experience = () => {
   return (
     <>
         <orbitControls args={ [ camera, gl.domElement ] } />
+        <directionalLight position={[ 1,2,3 ] }  intensity={1} />
+        <ambientLight intensity={0.4} />
         <group ref={groupRef}>
             <mesh
                 position-x ={2}
                 >
                 <boxGeometry/>
-                <meshBasicMaterial color="mediumpurple" />
+                <meshStandardMaterial color="mediumpurple" />
             </mesh>
 
             <mesh
                 position-x ={-2}
                 >
                 <sphereGeometry />
-                <meshBasicMaterial color="orange" />
+                <meshStandardMaterial color="orange" />
             </mesh>
 
         </group>
             <mesh rotation-x={ - Math.PI * 0.5 } position-y= {-1}  scale={15} >
                 <planeGeometry  />
-                <meshBasicMaterial color="green" />
+                <meshStandardMaterial color="green" />
             </mesh>
     </>
   )
