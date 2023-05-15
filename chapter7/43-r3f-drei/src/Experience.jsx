@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import { Text, Html, PivotControls ,TransformControls, OrbitControls } from '@react-three/drei'
+import { Float, Text, Html, PivotControls ,TransformControls, OrbitControls } from '@react-three/drei'
 import { useRef } from 'react'
 
 export default function Experience()
@@ -10,16 +10,20 @@ export default function Experience()
         <OrbitControls makeDefault />
         <directionalLight position={ [ 1, 2, 3 ] } intensity={ 1.5 } />
         <ambientLight intensity={ 0.5 } />
-        <Text 
-        fontSize={1.5}
-        color='#ff54ff'
-        position-y = {2.5}
-        maxWidth={7}
-        textAlign='center'
-
+        <Float
+            speed={5}
+            floatIntensity={10}
         >
-            I love Three js
-        </Text>
+            <Text 
+                fontSize={1.5}
+                color='#ff54ff'
+                position-y = {2.5}
+                maxWidth={7}
+                textAlign='center'
+                >
+                I love Three js
+            </Text>
+        </Float>
         <PivotControls 
             anchor={ [ 0, 0, 0] }
             depthTest={ false }
@@ -30,15 +34,15 @@ export default function Experience()
             
         >
             <mesh position-x={ - 2 } ref={sphere} >
-                {/* <Html 
+                <Html 
                     wrapperClass='label'
                     position={[ 1, 1, 0]}
                     center
                     occlude={[ sphere, cube ]}
-                    distanceFactor={10}
+                    distanceFactor={7}
                 >
                     Hello World!
-                </Html> */}
+                </Html>
                 <sphereGeometry />
                 <meshStandardMaterial color="orange" />
             </mesh>
