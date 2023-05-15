@@ -5,7 +5,8 @@ import { Perf } from 'r3f-perf'
 export default function Experience()
 {
 
-    const { position: {x, y}, color, visible } = useControls('Hello Sphere', {
+    const { position: {x, y}, color, visible, perfVisibility  } = useControls('Hello Sphere', {
+        perfVisibility: true,
         position : {
             value: {x: -2, y: 1},
             step: 0.5,
@@ -25,7 +26,7 @@ export default function Experience()
         
     })
     return <>
-        <Perf position="top-left" />
+        {perfVisibility ? <Perf position="top-left"  /> : null}
 
         <OrbitControls makeDefault />
 
