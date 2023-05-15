@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import { Float, Text, Html, PivotControls ,TransformControls, OrbitControls } from '@react-three/drei'
+import {  MeshReflectorMaterial, Float, Text, Html, PivotControls ,TransformControls, OrbitControls } from '@react-three/drei'
 import { useRef } from 'react'
 
 export default function Experience()
@@ -17,8 +17,8 @@ export default function Experience()
             <Text 
                 fontSize={1.5}
                 color='#ff54ff'
-                position-y = {2.5}
-                maxWidth={7}
+                position-y = {3.5}
+                maxWidth={10}
                 textAlign='center'
                 >
                 I love Three js
@@ -56,7 +56,13 @@ export default function Experience()
 
         <mesh position-y={ - 1 } rotation-x={ - Math.PI * 0.5 } scale={ 10 }>
             <planeGeometry />
-            <meshStandardMaterial color="greenyellow" side={THREE.DoubleSide} />
+            <MeshReflectorMaterial
+                resolution={1024}
+                blur={ [1000, 1000 ] }
+                mixBlur={1}
+                mirror={0.7}
+                color="greenyellow"
+            />
         </mesh>
 
     </>
