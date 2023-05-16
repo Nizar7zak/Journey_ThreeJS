@@ -1,5 +1,5 @@
 import { useFrame } from '@react-three/fiber'
-import { SoftShadows ,BakeShadows, useHelper, OrbitControls } from '@react-three/drei'
+import { SoftShadows ,BakeShadows, useHelper, OrbitControls, AccumulativeShadows, RandomizedLight } from '@react-three/drei'
 import { useRef } from 'react'
 import { Perf } from 'r3f-perf'
 import * as THREE from 'three'
@@ -11,7 +11,7 @@ export default function Experience()
     const cube = useRef()
     const directionalLight = useRef()
 
-    useHelper(directionalLight, THREE.DirectionalLightHelper, 1, 'red')
+    // useHelper(directionalLight, THREE.DirectionalLightHelper, 1, 'red')
 
     
     useFrame((state, delta) =>
@@ -20,6 +20,7 @@ export default function Experience()
     })
 
     return <>
+        <Perf position="top-left" />
 
         {/* <SoftShadows         
             frustum= {3.75}
@@ -30,7 +31,26 @@ export default function Experience()
         /> */}
 
         {/* <BakeShadows /> */}
-        <Perf position="top-left" />
+
+        <AccumulativeShadows
+            position={[ 0, -0.999, 0]}
+            scale={10}
+            color='#316d39'
+            opacity={0.8}
+            frames={1000}
+            temporal
+
+        >
+            <RandomizedLight 
+                amount={8}
+                radius={1}
+                ambient={0.5}
+                intensity={1}
+                position={[1,2,3]}
+                bias={0.001}
+            />
+
+        </AccumulativeShadows>
 
         <OrbitControls makeDefault />
 
@@ -66,7 +86,7 @@ export default function Experience()
             // receiveShadow 
         >
             <planeGeometry />
-            <meshStandardMaterial color="greenyellow" />
+            <meshStandardMaterial color="greenyellow" side={THREE.DoubleSide} />
         </mesh>
 
     </>
