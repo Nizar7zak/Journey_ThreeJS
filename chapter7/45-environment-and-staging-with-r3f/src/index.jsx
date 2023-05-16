@@ -2,6 +2,7 @@ import './style.css'
 import ReactDOM from 'react-dom/client'
 import { Canvas } from '@react-three/fiber'
 import Experience from './Experience.jsx'
+import ExpStage from './ExpStage'
 
 const root = ReactDOM.createRoot(document.querySelector('#root'))
 
@@ -16,6 +17,6 @@ root.render(
         } }
     >
         <color args={[ 'ivory' ]} attach='background' />
-        <Experience />
+        <ExpStage />
     </Canvas>
 )
