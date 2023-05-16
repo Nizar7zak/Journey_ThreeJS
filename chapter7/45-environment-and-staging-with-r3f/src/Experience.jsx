@@ -1,5 +1,12 @@
 import { useFrame } from '@react-three/fiber'
-import { SoftShadows ,BakeShadows, useHelper, OrbitControls, AccumulativeShadows, RandomizedLight } from '@react-three/drei'
+import { 
+    SoftShadows, 
+    BakeShadows, 
+    useHelper, 
+    OrbitControls, 
+    AccumulativeShadows, 
+    RandomizedLight 
+} from '@react-three/drei'
 import { useRef } from 'react'
 import { Perf } from 'r3f-perf'
 import * as THREE from 'three'
@@ -11,11 +18,12 @@ export default function Experience()
     const cube = useRef()
     const directionalLight = useRef()
 
-    // useHelper(directionalLight, THREE.DirectionalLightHelper, 1, 'red')
+    useHelper(directionalLight, THREE.DirectionalLightHelper, 1, 'red')
 
     
     useFrame((state, delta) =>
     {
+        // cube.current.position.x = 2 + Math.sin(state.clock.elapsedTime)
         cube.current.rotation.y += delta * 0.2
     })
 
@@ -31,14 +39,15 @@ export default function Experience()
         /> */}
 
         {/* <BakeShadows /> */}
-
+{/* 
         <AccumulativeShadows
             position={[ 0, -0.999, 0]}
             scale={10}
             color='#316d39'
             opacity={0.8}
-            frames={1000}
+            frames={Infinity}
             temporal
+            blend={100}
 
         >
             <RandomizedLight 
@@ -50,7 +59,7 @@ export default function Experience()
                 bias={0.001}
             />
 
-        </AccumulativeShadows>
+        </AccumulativeShadows> */}
 
         <OrbitControls makeDefault />
 
