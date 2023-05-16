@@ -1,11 +1,13 @@
 import { useFrame } from '@react-three/fiber'
+import { useControls } from 'leva'
 import { 
     SoftShadows, 
     BakeShadows, 
     useHelper, 
     OrbitControls, 
     AccumulativeShadows, 
-    RandomizedLight 
+    RandomizedLight, 
+    ContactShadows
 } from '@react-three/drei'
 import { useRef } from 'react'
 import { Perf } from 'r3f-perf'
@@ -17,6 +19,12 @@ export default function Experience()
 {
     const cube = useRef()
     const directionalLight = useRef()
+
+    const { color, opacity, blur } = useControls('Contact Shadows', {
+        color: "#50ff00",
+        opacity: { value: 0.40, min: 0, max: 1 },
+        blur: { value: 2.2, min: 0, max: 20 }    
+    })
 
     useHelper(directionalLight, THREE.DirectionalLightHelper, 1, 'red')
 
@@ -60,6 +68,16 @@ export default function Experience()
             />
 
         </AccumulativeShadows> */}
+
+        <ContactShadows
+            position={[0, -0.999, 0]}
+            scale={10}
+            resolution={1024}
+            far={4}
+            color={color}
+            opacity={opacity}
+            blur={blur}
+        />
 
         <OrbitControls makeDefault />
 
