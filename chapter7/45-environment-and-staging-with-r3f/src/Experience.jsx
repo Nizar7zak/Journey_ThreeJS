@@ -7,7 +7,8 @@ import {
     OrbitControls, 
     AccumulativeShadows, 
     RandomizedLight, 
-    ContactShadows
+    ContactShadows,
+    Sky
 } from '@react-three/drei'
 import { useRef } from 'react'
 import { Perf } from 'r3f-perf'
@@ -24,6 +25,10 @@ export default function Experience()
         color: "#50ff00",
         opacity: { value: 0.40, min: 0, max: 1 },
         blur: { value: 2.2, min: 0, max: 20 }    
+    })
+
+    const { sunPosition } = useControls('SunPosition', {
+        sunPosition: [1, 2, 3]
     })
 
     useHelper(directionalLight, THREE.DirectionalLightHelper, 1, 'red')
@@ -69,6 +74,8 @@ export default function Experience()
 
         </AccumulativeShadows> */}
 
+        <Sky sunPosition={sunPosition} />
+
         <ContactShadows
             position={[0, -0.999, 0]}
             scale={10}
@@ -83,7 +90,7 @@ export default function Experience()
 
         <directionalLight 
             ref={directionalLight}
-            position={ [ 1, 2, 3 ] } 
+            position={ sunPosition } 
             intensity={ 1.5 } 
             castShadow
             shadow-mapSize = {[1024, 1024]}
