@@ -1,6 +1,7 @@
 import { OrbitControls } from '@react-three/drei'
 import { Perf } from 'r3f-perf'
 import { Suspense } from 'react'
+import Fox from './Fox'
 import Hamburger from './Hamburger'
 import Model from './Model'
 import PlaceHolder from './PlaceHolder'
@@ -21,7 +22,8 @@ export default function Experience()
         <Suspense fallback={ <PlaceHolder position-y={0.5} scale={[2,3,2]} />}>
             {/* <Model /> */}
             {/* <Hamburger /> */}
-            <ToR3F scale={0.35} />
+            {/* <ToR3F scale={0.35} /> */}
+            <Fox />
         </Suspense>
 
     </>
