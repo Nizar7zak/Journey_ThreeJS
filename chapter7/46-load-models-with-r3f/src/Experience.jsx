@@ -8,14 +8,13 @@ export default function Experience()
 {
     const model = useLoader(
         GLTFLoader, 
-        './hamburger-draco.glb',
+        './FlightHelmet/glTF/FlightHelmet.gltf',
         (loader) => {
             const dracoLoader = new DRACOLoader()
             dracoLoader.setDecoderPath('./draco/')
             loader.setDRACOLoader(dracoLoader)
         }
     )
-    console.log(model)
 
     return <>
 
@@ -31,7 +30,11 @@ export default function Experience()
             <planeGeometry />
             <meshStandardMaterial color="greenyellow" />
         </mesh>
-        <primitive object={model.scene} scale={0.35} />
+        <primitive 
+            object={model.scene} 
+            scale={5} 
+            position-y={ - 1 }
+        />
 
     </>
 }
