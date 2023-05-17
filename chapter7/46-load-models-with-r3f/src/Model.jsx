@@ -5,7 +5,7 @@ import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader'
 const Model = () => {
     const model = useLoader(
         GLTFLoader, 
-        './FlightHelmet/glTF/FlightHelmet.gltf',
+        './hamburger.glb',
         (loader) => {
             const dracoLoader = new DRACOLoader()
             dracoLoader.setDecoderPath('./draco/')
@@ -15,8 +15,8 @@ const Model = () => {
   return (
     <primitive 
     object={model.scene} 
-    scale={5} 
-    position-y={ - 1 }
+    scale={0.35} 
+    // position-y={ - 1 }
 />
   )
 }
