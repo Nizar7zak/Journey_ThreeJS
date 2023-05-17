@@ -1,8 +1,13 @@
 import { OrbitControls } from '@react-three/drei'
 import { Perf } from 'r3f-perf'
+import { useLoader } from '@react-three/fiber'
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 
 export default function Experience()
 {
+    const model = useLoader(GLTFLoader, './hamburger.glb')
+    console.log(model)
+
     return <>
 
         <Perf position="top-left" />
@@ -17,6 +22,7 @@ export default function Experience()
             <planeGeometry />
             <meshStandardMaterial color="greenyellow" />
         </mesh>
+        <primitive object={model.scene} scale={0.35} />
 
     </>
 }
