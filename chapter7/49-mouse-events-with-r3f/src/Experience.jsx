@@ -13,7 +13,6 @@ export default function Experience()
 
 
     const eventHandler = (event) => {
-        console.log(event)
         cube.current.material.color.set(`hsl(${Math.random() * 360}, 100%, 75%)`)
     }
     return <>
@@ -32,7 +31,18 @@ export default function Experience()
             ref={ cube } 
             position-x={ 2 } 
             scale={ 1.5 }
-            onClick={eventHandler}
+            onPointerMissed={eventHandler}
+            // onClick left
+            // onContextMenu right
+            // onDoubleClick
+            // onPointerUp
+            // onPointerDown
+            // onPointerOver & onPointerEnter -> when you enter
+            //  onPointerOut & onPointerLeave -> when you leave
+            // onPointerMove
+            // onPointerMissed => when the user click outside of the object
+
+
         >
             <boxGeometry />
             <meshStandardMaterial color="mediumpurple" />
