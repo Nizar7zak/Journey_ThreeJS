@@ -1,13 +1,15 @@
 import { OrbitControls } from '@react-three/drei'
 import { Perf } from 'r3f-perf'
-
+import { EffectComposer } from '@react-three/postprocessing'
 
 
 // npm i @react-three/postprocessing@2.6
 export default function Experience()
 {
     return <>
-
+        <EffectComposer >
+            
+        </EffectComposer>
         <Perf position="top-left" />
 
         <OrbitControls makeDefault />
