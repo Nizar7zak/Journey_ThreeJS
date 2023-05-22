@@ -1,6 +1,9 @@
 import { OrbitControls } from '@react-three/drei'
 import { Perf } from 'r3f-perf'
 
+
+
+// npm i @react-three/postprocessing@2.6
 export default function Experience()
 {
     return <>
