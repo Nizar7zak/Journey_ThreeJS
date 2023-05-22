@@ -7,6 +7,8 @@ const root = ReactDOM.createRoot(document.querySelector('#root'))
 
 root.render(
     <Canvas
+    // No tone mapping =>
+        flat
         camera={ {
             fov: 45,
             near: 0.1,
