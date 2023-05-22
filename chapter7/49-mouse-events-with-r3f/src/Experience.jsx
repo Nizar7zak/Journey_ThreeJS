@@ -1,5 +1,5 @@
 import { useFrame } from '@react-three/fiber'
-import { OrbitControls } from '@react-three/drei'
+import { OrbitControls, useGLTF } from '@react-three/drei'
 import { useRef } from 'react'
 
 export default function Experience()
@@ -10,6 +10,8 @@ export default function Experience()
     {
         cube.current.rotation.y += delta * 0.2
     })
+
+    const model = useGLTF('./hamburger.glb')
 
 
     const eventHandler = (event) => {
@@ -26,7 +28,7 @@ export default function Experience()
     const handlePointerLeave = () => {
         document.body.style.cursor = 'default'
     }
-    
+
     return <>
 
         <OrbitControls makeDefault />
@@ -69,6 +71,15 @@ export default function Experience()
             <planeGeometry />
             <meshStandardMaterial color="greenyellow" />
         </mesh>
+
+        <primitive 
+            object={model.scene}
+            scale={0.25}
+            position-y={0.5}
+            onClick={(event) => {
+                event.stopPropagation()
+            }}
+        />
 
     </>
 }
