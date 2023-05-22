@@ -1,5 +1,5 @@
 import { useFrame } from '@react-three/fiber'
-import { OrbitControls, useGLTF } from '@react-three/drei'
+import { useBVH, meshBounds, OrbitControls, useGLTF } from '@react-three/drei'
 import { useRef } from 'react'
 
 export default function Experience()
@@ -45,6 +45,7 @@ export default function Experience()
         </mesh>
 
         <mesh 
+            raycast={meshBounds}
             ref={ cube } 
             position-x={ 2 } 
             scale={ 1.5 }
