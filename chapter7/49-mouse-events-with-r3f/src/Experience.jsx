@@ -11,6 +11,11 @@ export default function Experience()
         cube.current.rotation.y += delta * 0.2
     })
 
+
+    const eventHandler = (event) => {
+        console.log(event)
+        cube.current.material.color.set(`hsl(${Math.random() * 360}, 100%, 75%)`)
+    }
     return <>
 
         <OrbitControls makeDefault />
@@ -23,7 +28,12 @@ export default function Experience()
             <meshStandardMaterial color="orange" />
         </mesh>
 
-        <mesh ref={ cube } position-x={ 2 } scale={ 1.5 }>
+        <mesh 
+            ref={ cube } 
+            position-x={ 2 } 
+            scale={ 1.5 }
+            onClick={eventHandler}
+        >
             <boxGeometry />
             <meshStandardMaterial color="mediumpurple" />
         </mesh>
