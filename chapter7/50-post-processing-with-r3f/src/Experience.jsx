@@ -1,6 +1,6 @@
 import { OrbitControls } from '@react-three/drei'
 import { Perf } from 'r3f-perf'
-import { Vignette, EffectComposer, Glitch, Noise, Bloom } from '@react-three/postprocessing'
+import { Vignette, EffectComposer, Glitch, Noise, Bloom, DepthOfField } from '@react-three/postprocessing'
 import { GlitchMode, BlendFunction } from 'postprocessing'
 
 
@@ -8,7 +8,7 @@ import { GlitchMode, BlendFunction } from 'postprocessing'
 export default function Experience()
 {
     return <>
-        <color args={['#000000']} attach="background" />
+        <color args={['#ffffff']} attach="background" />
         <EffectComposer >
             {/* <Vignette 
                 offset={0.3}
@@ -25,12 +25,19 @@ export default function Experience()
                 premultiply
                 blendFunction={BlendFunction.SOFT_LIGHT}
             /> */}
-            <Bloom 
+            {/* <Bloom 
                 mipmapBlur
                 intensity={0.1}
                 luminanceThreshold={0}
 
+            /> */}
+            <DepthOfField 
+            focusDistance={ 0.025 }
+            focalLength={ 0.025 }
+            bokehScale= { 6 }
+
             />
+
         </EffectComposer>
         <Perf position="top-left" />
 
@@ -41,12 +48,12 @@ export default function Experience()
 
         <mesh castShadow position-x={ - 2 }>
             <sphereGeometry />
-            <meshBasicMaterial color="orange" toneMapped={false} />
+            <meshStandardMaterial color="orange" />
         </mesh>
 
         <mesh castShadow position-x={ 2 } scale={ 1.5 }>
             <boxGeometry />
-            <meshBasicMaterial color={[ 1.5 * 10, 1 * 10, 4 * 10]} toneMapped={false} />
+            <meshStandardMaterial color='mediumpurple' />
         </mesh>
 
         <mesh receiveShadow position-y={ - 1 } rotation-x={ - Math.PI * 0.5 } scale={ 10 }>
