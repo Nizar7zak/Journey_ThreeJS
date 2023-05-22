@@ -19,6 +19,14 @@ export default function Experience()
     const stopPropagation = (event) => {
         event.stopPropagation()
     }
+
+    const handlePointerEnter = () => {
+        document.body.style.cursor = 'pointer'
+    }
+    const handlePointerLeave = () => {
+        document.body.style.cursor = 'default'
+    }
+    
     return <>
 
         <OrbitControls makeDefault />
@@ -39,6 +47,8 @@ export default function Experience()
             position-x={ 2 } 
             scale={ 1.5 }
             onClick={eventHandler}
+            onPointerEnter={handlePointerEnter}
+            onPointerLeave={handlePointerLeave}
             // onClick left
             // onContextMenu right
             // onDoubleClick
