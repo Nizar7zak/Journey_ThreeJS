@@ -1,12 +1,15 @@
 import { OrbitControls } from '@react-three/drei'
 import { Perf } from 'r3f-perf'
-import { Vignette, EffectComposer, Glitch, Noise, Bloom, DepthOfField, SSR } from '@react-three/postprocessing'
+import { SSR, DepthOfField, Bloom, Noise, Glitch, Vignette, EffectComposer } from '@react-three/postprocessing'
 import { GlitchMode, BlendFunction } from 'postprocessing'
 import { useControls } from 'leva'
+import Drunk from './Drunk.jsx'
+import { useRef } from 'react'
 
-// npm i @react-three/postprocessing@2.6
 export default function Experience()
 {
+    const drunkRef = useRef()
+
     // const ssrProps = useControls('SSR Effect', {
     //     temporalResolve: true,
     //     STRETCH_MISSED_RAYS: true,
@@ -37,40 +40,50 @@ export default function Experience()
     //     thickness: { value: 10, min: 0, max: 10 },
     //     ior: { value: 1.45, min: 0, max: 2 }
     // })
+
+    const drunkProps = useControls('Drunk Effect', {
+        frequency: { value: 2, min: 1, max: 20 },
+        amplitude: { value: 0.1, min: 0, max: 1 }
+    })
+
     return <>
-        <color args={['#ffffff']} attach="background" />
-        <EffectComposer >
-            {/* <Vignette 
-                offset={0.3}
-                darkness={0.9}
-                blendFunction={BlendFunction.NORMAL}
-            />
-            <Glitch 
-                delay={[0.5, 1]}
-                duration={[ 0.1, 0.3]}
-                strength={[0.2, 0.4]}
-                mode={GlitchMode.CONSTANT_WILD}
-            />
-            <Noise 
-                premultiply
-                blendFunction={BlendFunction.SOFT_LIGHT}
-            />
-            <Bloom 
+
+        <color args={ [ '#ffffff' ] } attach="background" />
+
+        <EffectComposer>
+            {/* <Vignette
+                offset={ 0.3 }
+                darkness={ 0.9 }
+                blendFunction={ BlendFunction.NORMAL }
+            /> */}
+            {/* <Glitch
+                delay={ [ 0.5, 1 ] }
+                duration={ [ 0.1, 0.3 ] }
+                strength={ [ 0.2, 0.4 ] }
+                mode={ GlitchMode.CONSTANT_MILD }
+            /> */}
+            {/* <Noise
+                // premultiply
+                blendFunction={ BlendFunction.SOFT_LIGHT }
+            /> */}
+            {/* <Bloom
                 mipmapBlur
-                intensity={0.1}
-                luminanceThreshold={0}
-
+                intensity={ 1.0 }
+                luminanceThreshold={ 0.5 }
+            /> */}
+            {/* <DepthOfField
+                focusDistance={ 0.025 }
+                focalLength={ 0.025 }
+                bokehScale={ 6 }
+            /> */}
+            {/* <SSR {...ssrProps} /> */}
+            <Drunk
+                ref={ drunkRef }
+                { ...drunkProps }
+                blendFunction={ BlendFunction.DARKEN }
             />
-            <DepthOfField 
-            focusDistance={ 0.025 }
-            focalLength={ 0.025 }
-            bokehScale= { 6 }
-
-            /> */}
-            {/* <SSR 
-                {...ssrProps}
-            /> */}
         </EffectComposer>
+
         <Perf position="top-left" />
 
         <OrbitControls makeDefault />
@@ -85,12 +98,12 @@ export default function Experience()
 
         <mesh castShadow position-x={ 2 } scale={ 1.5 }>
             <boxGeometry />
-            <meshStandardMaterial color='mediumpurple' />
+            <meshStandardMaterial color="mediumpurple" />
         </mesh>
 
         <mesh receiveShadow position-y={ - 1 } rotation-x={ - Math.PI * 0.5 } scale={ 10 }>
             <planeGeometry />
-            <meshStandardMaterial color="greenyellow" metalness={0} roughness={0} />
+            <meshStandardMaterial color="#555555" metalness={ 0 } roughness={ 0 } />
         </mesh>
 
     </>
