@@ -1,6 +1,7 @@
 import { OrbitControls } from '@react-three/drei'
 import { Perf } from 'r3f-perf'
 import { Vignette, EffectComposer } from '@react-three/postprocessing'
+import { BlendFunction } from 'postprocessing'
 
 
 // npm i @react-three/postprocessing@2.6
