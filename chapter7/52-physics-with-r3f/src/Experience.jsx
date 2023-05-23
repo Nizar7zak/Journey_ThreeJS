@@ -21,10 +21,10 @@ export default function Experience()
                 </mesh>
             </RigidBody>
 
-            <RigidBody colliders='hull'>
+            <RigidBody colliders='trimesh'>
                 <mesh 
                     castShadow
-                    rotation-x={Math.PI * 0.1}
+                    rotation-x={Math.PI * 0.5}
                     position={ [ 0, 1, 0 ] }
                 >
                     <torusGeometry
