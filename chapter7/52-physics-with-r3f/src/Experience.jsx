@@ -14,17 +14,19 @@ export default function Experience()
 
         <Physics>
             <Debug />
-            <RigidBody>
+            <RigidBody colliders='ball'>
                 <mesh castShadow position={ [ - 2, 2, 0 ] }>
                     <sphereGeometry />
                     <meshStandardMaterial color="orange" />
                 </mesh>
             </RigidBody>
 
-            <mesh castShadow position={ [ 2, 2, 0 ] }>
-                <boxGeometry />
-                <meshStandardMaterial color="mediumpurple" />
-            </mesh>
+            <RigidBody>
+                <mesh castShadow position={ [ 2, 2, 0 ] }>
+                    <boxGeometry />
+                    <meshStandardMaterial color="mediumpurple" />
+                </mesh>
+            </RigidBody>
 
             <RigidBody type='fixed'>
                 <mesh receiveShadow position-y={ - 1.25 }>
