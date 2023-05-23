@@ -1,6 +1,6 @@
 import { OrbitControls } from '@react-three/drei'
 import { Perf } from 'r3f-perf'
-import { Debug, RigidBody, Physics } from '@react-three/rapier'
+import { CuboidCollider, Debug, RigidBody, Physics } from '@react-three/rapier'
 export default function Experience()
 {
     return <>
@@ -21,11 +21,11 @@ export default function Experience()
                 </mesh>
             </RigidBody>
 
-            <RigidBody colliders='trimesh'>
+            <RigidBody colliders={false} rotation-x={Math.PI * 0.5} position={ [ 0, 1, 0 ] }>
+                <CuboidCollider args={[1.5, 1.5, 0.5]} />
+                <CuboidCollider args={[1, 1, 1]} position={[ 0, 0, 1]} rotation={[ -Math.PI *0.35, 0, 0 ]} />
                 <mesh 
                     castShadow
-                    rotation-x={Math.PI * 0.5}
-                    position={ [ 0, 1, 0 ] }
                 >
                     <torusGeometry
                         args={[ 1, 0.5, 16, 32 ]}
@@ -46,3 +46,5 @@ export default function Experience()
 
     </>
 }
+
+//  value of colliders cuboid ball hull trimesh
