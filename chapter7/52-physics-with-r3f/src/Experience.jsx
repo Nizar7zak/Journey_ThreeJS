@@ -35,7 +35,9 @@ export default function Experience()
             <RigidBody 
                 ref={cube} 
                 gravityScale={1}
-                restitution={1}
+                restitution={0}
+                friction={0.7}
+
             >
                 <mesh 
                     castShadow 
@@ -64,6 +66,7 @@ export default function Experience()
             <RigidBody 
                 type='fixed'
                 // restitution={1}
+                friction={0.7}
             >
                 <mesh
                      
