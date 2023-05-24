@@ -1,7 +1,7 @@
 import { OrbitControls } from '@react-three/drei'
 import { Perf } from 'r3f-perf'
 import { CuboidCollider, Debug, RigidBody, Physics } from '@react-three/rapier'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 
@@ -9,6 +9,7 @@ export default function Experience()
 {   
     const cube = useRef()
     const twister = useRef()
+    const [hitSound] = useState(() => new Audio('./hit.mp3'))
 
     const handleJump = () => {
         const mass = cube.current.mass()
@@ -18,6 +19,12 @@ export default function Experience()
             y: Math.random() - 0.5,
             z: Math.random() - 0.5
         })
+    }
+
+    const handleCollision = () => {
+        // hitSound.currentTime = 0
+        // hitSound.volume = Math.random()
+        // hitSound.play()
     }
 
     useFrame((state) => {
@@ -57,7 +64,10 @@ export default function Experience()
                 restitution={0}
                 friction={0.7}
                 colliders={false}
-
+                onCollisionEnter={handleCollision}
+                // onCollisionExit={}
+                // onSleep={}
+                // onWake={}
             >
                 <mesh 
                     castShadow 
@@ -99,7 +109,11 @@ export default function Experience()
                 </mesh>
             </RigidBody>
 
-            <RigidBody ref={twister} type='kinematicPosition' friction={0}> 
+            <RigidBody 
+                ref={twister} 
+                type='kinematicPosition' 
+                friction={0}
+            > 
                 <mesh position-y={-0.8}>
                     <boxGeometry args={[ 0.4, 0.4, 3 ]}  />
                     <meshStandardMaterial color={'red'} />
@@ -112,3 +126,8 @@ export default function Experience()
 }
 
 //  value of colliders cuboid ball hull trimesh
+
+// onCollisionEnter: when the RigidBody hit something.
+// onCollisionExit: when the RigidBody separates from the object it just hit.
+// onSleep: when the RigidBody starts sleeping.
+// onWake: when the RigidBody stops sleeping.
