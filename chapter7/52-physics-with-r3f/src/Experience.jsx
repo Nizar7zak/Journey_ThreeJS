@@ -1,7 +1,7 @@
 import { OrbitControls, useGLTF } from '@react-three/drei'
 import { Perf } from 'r3f-perf'
 import { CuboidCollider, Debug, RigidBody, Physics, CylinderCollider } from '@react-three/rapier'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 
@@ -11,6 +11,21 @@ export default function Experience()
     const twister = useRef()
     const [hitSound] = useState(() => new Audio('./hit.mp3'))
     const model = useGLTF('./hamburger.glb')
+
+    const cubesCount = 3
+    const cubes = useRef()
+
+    useEffect(() => {
+        const matrix = new THREE.Matrix4()
+        for(let i = 0; i < cubesCount; i++) {
+            matrix.compose(
+                new THREE.Vector3( i * 2, 0, 0),
+                new THREE.Quaternion(),
+                new THREE.Vector3(1, 1, 1)
+            )
+            cubes.current.setMatrixAt(i, matrix)
+        }
+    }, [])
 
     const handleJump = () => {
         const mass = cube.current.mass()
@@ -132,6 +147,12 @@ export default function Experience()
                 <CuboidCollider args={[ 0.5, 2, 5 ]} position={[ 5.5, 1, 0 ]} />
                 <CuboidCollider args={[ 0.5, 2, 5 ]} position={[ - 5.5, 1, 0 ]} />
             </RigidBody>
+
+
+            <instancedMesh args={[ null, null, cubesCount]} ref={cubes} >
+                <boxGeometry />
+                <meshStandardMaterial color='tomato' />
+            </instancedMesh>
         </Physics>
 
 
