@@ -1,7 +1,7 @@
 import { OrbitControls, useGLTF } from '@react-three/drei'
 import { Perf } from 'r3f-perf'
-import { CuboidCollider, Debug, RigidBody, Physics, CylinderCollider } from '@react-three/rapier'
-import { useEffect, useRef, useState } from 'react'
+import { CuboidCollider, Debug, RigidBody, Physics, CylinderCollider, InstancedRigidBodies } from '@react-three/rapier'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 
@@ -12,20 +12,49 @@ export default function Experience()
     const [hitSound] = useState(() => new Audio('./hit.mp3'))
     const model = useGLTF('./hamburger.glb')
 
-    const cubesCount = 3
+    const cubesCount = 100
     const cubes = useRef()
 
-    useEffect(() => {
-        const matrix = new THREE.Matrix4()
-        for(let i = 0; i < cubesCount; i++) {
-            matrix.compose(
-                new THREE.Vector3( i * 2, 0, 0),
-                new THREE.Quaternion(),
-                new THREE.Vector3(1, 1, 1)
-            )
-            cubes.current.setMatrixAt(i, matrix)
+    const cubesTransforms = useMemo(() => {
+        const positions = []
+        const rotations = []
+        const scales = []
+
+        for (let i = 0; i < cubesCount; i++) {
+            positions.push([ 
+                (Math.random() - 0.5) * 8,
+                6 + i * 0.2,
+                (Math.random() - 0.5) * 8,
+            ])
+            rotations.push([ 
+                Math.random(),
+                Math.random(),
+                Math.random() 
+            ])
+
+            const scale = 0.2 + Math.random() * 0.8
+            scales.push([ 
+                scale,
+                scale,
+                scale 
+            ])
         }
+
+        return { positions, rotations, scales }
+
     }, [])
+    // THis use effect if you want to handle initial position of Matrix.
+    // useEffect(() => {
+    //     const matrix = new THREE.Matrix4()
+    //     for(let i = 0; i < cubesCount; i++) {
+    //         matrix.compose(
+    //             new THREE.Vector3( i * 2, 0, 0),
+    //             new THREE.Quaternion(),
+    //             new THREE.Vector3(1, 1, 1)
+    //         )
+    //         cubes.current.setMatrixAt(i, matrix)
+    //     }
+    // }, [])
 
     const handleJump = () => {
         const mass = cube.current.mass()
@@ -148,11 +177,18 @@ export default function Experience()
                 <CuboidCollider args={[ 0.5, 2, 5 ]} position={[ - 5.5, 1, 0 ]} />
             </RigidBody>
 
+            <InstancedRigidBodies
+                positions={ cubesTransforms.positions}
+                rotations={ cubesTransforms.rotations}
+                scales={ cubesTransforms.scales}
+            >
 
-            <instancedMesh args={[ null, null, cubesCount]} ref={cubes} >
-                <boxGeometry />
-                <meshStandardMaterial color='tomato' />
-            </instancedMesh>
+                <instancedMesh castShadow args={[ null, null, cubesCount]} ref={cubes} >
+                    <boxGeometry />
+                    <meshStandardMaterial color='tomato' />
+                </instancedMesh>
+
+            </InstancedRigidBodies>
         </Physics>
 
 
