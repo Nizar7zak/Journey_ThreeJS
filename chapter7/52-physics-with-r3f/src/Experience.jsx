@@ -2,18 +2,37 @@ import { OrbitControls } from '@react-three/drei'
 import { Perf } from 'r3f-perf'
 import { CuboidCollider, Debug, RigidBody, Physics } from '@react-three/rapier'
 import { useRef } from 'react'
+import { useFrame } from '@react-three/fiber'
+import * as THREE from 'three'
+
 export default function Experience()
 {   
     const cube = useRef()
+    const twister = useRef()
 
     const handleJump = () => {
-        cube.current.applyImpulse({ x: 0, y: 5, z: 0})
+        const mass = cube.current.mass()
+        cube.current.applyImpulse({ x: 0, y: 5 * mass, z: 0})
         cube.current.applyTorqueImpulse({ 
             x: Math.random() - 0.5,
             y: Math.random() - 0.5,
             z: Math.random() - 0.5
         })
     }
+
+    useFrame((state) => {
+        const time = state.clock.elapsedTime
+        const eulerRotation = new THREE.Euler(0, time * 3, 0)
+        const quaternionRotation = new THREE.Quaternion()
+        quaternionRotation.setFromEuler(eulerRotation)
+        twister.current.setNextKinematicRotation(quaternionRotation)
+
+        const angle = time * 0.5
+        const x = Math.cos(angle) * 2
+        const z = Math.sin(angle) * 2
+        twister.current.setNextKinematicTranslation({ x: x , y: 0, z: z })
+
+    })
     return <>
         
         <Perf position="top-left" />
@@ -77,6 +96,13 @@ export default function Experience()
                 >
                     <boxGeometry args={ [ 10, 0.5, 10 ] } />
                     <meshStandardMaterial color="greenyellow" />
+                </mesh>
+            </RigidBody>
+
+            <RigidBody ref={twister} type='kinematicPosition' friction={0}> 
+                <mesh position-y={-0.8}>
+                    <boxGeometry args={[ 0.4, 0.4, 3 ]}  />
+                    <meshStandardMaterial color={'red'} />
                 </mesh>
             </RigidBody>
 
