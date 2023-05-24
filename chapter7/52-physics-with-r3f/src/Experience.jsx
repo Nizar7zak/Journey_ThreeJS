@@ -37,6 +37,7 @@ export default function Experience()
                 gravityScale={1}
                 restitution={0}
                 friction={0.7}
+                colliders={false}
 
             >
                 <mesh 
@@ -44,6 +45,7 @@ export default function Experience()
                     position={ [ 1.5, 2, 0 ] } 
                     onClick={handleJump} 
                 >
+                    <CuboidCollider mass={2} args={[ 0.5, 0.5, 0.5 ]} />
                     <boxGeometry />
                     <meshStandardMaterial color="mediumpurple" />
                 </mesh>
